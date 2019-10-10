@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/codingPlatform")
 @SpringBootApplication
 public class CodingplatformApplication {
         
         private final String sharedKey = "SHARED_KEY";
-        
+        //@CrossOrigin(origins = "https://localhost:3000")
         @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
         @RequestMapping(value = "/register", method = RequestMethod.POST)
         public Register token(@RequestParam(value = "key") String key, @RequestBody Register []resource) {
             return BuisnessLogic.addUser(resource);
         }
-        
+        //@CrossOrigin(origins = "https://localhost:3000")
         @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
         @RequestMapping(value = "/checkTeam", method = RequestMethod.POST)
         public Team token(@RequestParam(value = "key") String key, @RequestBody Team resource) {

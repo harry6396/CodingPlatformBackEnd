@@ -26,7 +26,11 @@ public class BuisnessLogic {
             String sql = "SELECT TeamName"
                     + " FROM RegisterUser WHERE TeamName='" + registerUser[0].getTeamName().toLowerCase() + "';";
             ResultSet rst = stmt.executeQuery(sql);
-            if (rst!=null) {
+            if(rst != null){
+                rst.beforeFirst();  
+                rst.last();  
+                int size = rst.getRow(); 
+            if (size!=0) {
             	register.setStatus("Fail");
             } else {
             	String sqlQuery = "INSERT INTO RegisterUser (EmailID, Name, PhoneNumber, TeamName) VALUES('"
@@ -45,6 +49,9 @@ public class BuisnessLogic {
             	con.close();
             	register.setStatus("Success");
             }
+            }else{
+                register.setStatus("Fail");
+            }
         }
         catch(Exception ex){
         	Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,11 +68,19 @@ public class BuisnessLogic {
             String sql = "SELECT TeamName"
                     + " FROM RegisterUser WHERE TeamName='" + teamDetails.teamName.toLowerCase() + "';";
             ResultSet rst = stmt.executeQuery(sql);
-            if (rst!=null) {
+            if(rst!=null){
+                rst.beforeFirst();  
+                rst.last();  
+                int size = rst.getRow();  
+                if (size==0) {
+                    team.setStatus("Success");
+                } else {
                 team.setStatus("Fail");
-            } else {
-                team.setStatus("Success");
+                }
+            }else{
+                team.setStatus("Fail");
             }
+            con.close();
             return team;
         } catch (SQLException ex) {
             Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
