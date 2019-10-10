@@ -22,7 +22,7 @@ public class CodingplatformApplication {
         
         @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
         @RequestMapping(value = "/register", method = RequestMethod.POST)
-        public Register token(@RequestParam(value = "key") String key, @RequestBody Register resource) {
+        public Register token(@RequestParam(value = "key") String key, @RequestBody Register []resource) {
             return BuisnessLogic.addUser(resource);
         }
         
