@@ -18,9 +18,38 @@ import java.util.logging.Logger;
  * @author Prabhat
  */
 public class BuisnessLogic {
-    public static Register addUser(Register registerUser){
+    public static Register addUser(Register []registerUser){
         Register register = new Register();
-        
+        java.sql.Connection con = Connection.connectionEstablish();
+        try{
+        	Statement stmt = con.createStatement();
+            String sql = "SELECT TeamName"
+                    + " FROM RegisterUser WHERE TeamName='" + registerUser[0].getTeamName().toLowerCase() + "';";
+            ResultSet rst = stmt.executeQuery(sql);
+            if (rst!=null) {
+            	register.setStatus("Fail");
+            } else {
+            	String sqlQuery = "INSERT INTO RegisterUser (EmailID, Name, PhoneNumber, TeamName) VALUES('"
+            			+	registerUser[0].getEmailID()+"','"
+            			+	registerUser[0].getName()+"','"
+            			+	registerUser[0].getPhoneNumber()+"','"
+            			+	registerUser[0].getTeamName().toLowerCase()
+            			+	"'),"
+            			+ 	"('"
+            			+	registerUser[1].getEmailID() + "','"
+            			+	registerUser[1].getName() + "','"
+            			+	registerUser[1].getPhoneNumber() + "','"
+            			+	registerUser[1].getTeamName().toLowerCase()	
+            			+ 	"')";
+            	stmt.executeUpdate(sqlQuery);
+            	con.close();
+            	register.setStatus("Success");
+            }
+        }
+        catch(Exception ex){
+        	Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
+        	register.setStatus(ex.getMessage());
+        }
         return register;
     }
     
