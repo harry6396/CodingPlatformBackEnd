@@ -33,19 +33,25 @@ public class BuisnessLogic {
             if (size!=0) {
             	register.setStatus("Fail");
             } else {
-            	String sqlQuery = "INSERT INTO RegisterUser (EmailID, Name, PhoneNumber, TeamName) VALUES('"
-            			+	registerUser[0].getEmailID()+"','"
-            			+	registerUser[0].getName()+"','"
-            			+	registerUser[0].getPhoneNumber()+"','"
-            			+	registerUser[0].getTeamName().toLowerCase()
-            			+	"'),"
-            			+ 	"('"
-            			+	registerUser[1].getEmailID() + "','"
-            			+	registerUser[1].getName() + "','"
-            			+	registerUser[1].getPhoneNumber() + "','"
-            			+	registerUser[1].getTeamName().toLowerCase()	
-            			+ 	"')";
-            	stmt.executeUpdate(sqlQuery);
+				String sqlQuery = "INSERT INTO RegisterUser (EmailID, Name, PhoneNumber, TeamName) VALUES('";
+				String sqlQueryBody="";
+				for(int iCounter=0;iCounter<registerUser.length;iCounter++){
+					if(iCounter<registerUser.length-1){
+						sqlQueryBody += registerUser[iCounter].getEmailID()+"','"
+            			+	registerUser[iCounter].getName()+"','"
+            			+	registerUser[iCounter].getPhoneNumber()+"','"
+            			+	registerUser[iCounter].getTeamName().toLowerCase()
+            			+	"'),(";
+					}
+					else{
+						sqlQueryBody += registerUser[iCounter].getEmailID()+"','"
+            			+	registerUser[iCounter].getName()+"','"
+            			+	registerUser[iCounter].getPhoneNumber()+"','"
+            			+	registerUser[iCounter].getTeamName().toLowerCase()
+            			+	"');";
+					}
+				}
+            	stmt.executeUpdate(sqlQuery+sqlQueryBody);
             	con.close();
             	register.setStatus("Success");
             }
