@@ -16,7 +16,7 @@ public class Login {
     public String teamName;
     public String passcode;
     public String status;
-    public List<Question> question = new ArrayList<Question>();
+    
     public String getTeamName() {
         return teamName;
     }

@@ -3,6 +3,7 @@ package com.example.codingplatform.codingplatform;
 import Controller.BuisnessLogic;
 import Models.FinalSubmission;
 import Models.Login;
+import Models.Question;
 import Models.Register;
 import Models.Team;
 import java.sql.SQLException;
@@ -48,6 +49,13 @@ public class CodingplatformApplication {
         @RequestMapping(value = "/finalSubmission", method = RequestMethod.POST)
         public FinalSubmission token(@RequestParam(value = "key") String key, @RequestBody FinalSubmission resource) throws SQLException {
             return BuisnessLogic.finalSubmit(resource);
+        }
+        
+        @CrossOrigin(origins = "https://localhost:3000")
+        //@CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @RequestMapping(value = "/fetchQuestion", method = RequestMethod.POST)
+        public Question token(@RequestParam(value = "key") String key, @RequestBody Question resource) throws SQLException {
+            return BuisnessLogic.question(resource);
         }
         
 	public static void main(String[] args) {
