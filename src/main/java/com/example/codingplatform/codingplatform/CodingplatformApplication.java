@@ -1,12 +1,15 @@
 package com.example.codingplatform.codingplatform;
 
 import Controller.BuisnessLogic;
+import Models.CheckProgress;
 import Models.FinalSubmission;
 import Models.Login;
 import Models.Question;
 import Models.Register;
 import Models.Team;
+
 import java.sql.SQLException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,6 +59,13 @@ public class CodingplatformApplication {
         @RequestMapping(value = "/fetchQuestion", method = RequestMethod.POST)
         public Question token(@RequestParam(value = "key") String key, @RequestBody Question resource) throws SQLException {
             return BuisnessLogic.question(resource);
+        }
+        
+        @CrossOrigin(origins = "https://localhost:3000")
+        //@CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @RequestMapping(value = "/fetchProgress", method = RequestMethod.POST)
+        public CheckProgress token(@RequestParam(value = "key") String key, @RequestBody CheckProgress resource) throws SQLException {
+            return BuisnessLogic.checkProgress(resource);
         }
         
 	public static void main(String[] args) {
