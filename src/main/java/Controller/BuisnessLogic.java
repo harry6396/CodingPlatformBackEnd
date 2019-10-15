@@ -207,13 +207,15 @@ public class BuisnessLogic {
     	String sql="";
         java.sql.Connection con = Connection.connectionEstablish();
         try{
-        	
-        	sql = 	"ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);"
-        			+ "ALTER TABLE ProblemStatement Add CodeInput varchar(1024);";
-        			//+ "ALTER TABLE ProblemStatement Add CodeOutput varchar(1024);";
         	Statement stmt = con.createStatement();
+        	sql = "ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);";
+        	stmt.execute(sql);
+        	sql = "ALTER TABLE ProblemStatement Add CodeInput varchar(1024);";
+        	stmt.execute(sql);
+        	sql = "ALTER TABLE ProblemStatement Add CodeOutput varchar(1024);";
         	stmt.execute(sql);
         	login.setStatus("Success");
+        	con.close();
         }
         catch(Exception ex){
         	login.setStatus(ex.getMessage());
