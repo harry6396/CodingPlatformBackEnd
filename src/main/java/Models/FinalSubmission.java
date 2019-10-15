@@ -11,7 +11,6 @@ package Models;
  */
 public class FinalSubmission {
     public String teamName;
-    public String teamScore;
     public String completionTime;
     public String status;
 
@@ -29,14 +28,6 @@ public class FinalSubmission {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
-    }
-
-    public String getTeamScore() {
-        return teamScore;
-    }
-
-    public void setTeamScore(String teamScore) {
-        this.teamScore = teamScore;
     }
 
     public String getCompletionTime() {
