@@ -207,7 +207,7 @@ public class BuisnessLogic {
     public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
     	CheckProgress checkProgress = new CheckProgress();
     	java.sql.Connection con = Connection.connectionEstablish();
-        String sql = "SELECT QuestionType FROM TeamDetails WHERE TeamName  ='"+login.getTeamName()+"';";
+        String sql = "SELECT QuestionType FROM TeamDetail WHERE TeamName  ='"+login.getTeamName()+"';";
         try{
         	Statement stmt = con.createStatement();
         	ResultSet rst = stmt.executeQuery(sql);
