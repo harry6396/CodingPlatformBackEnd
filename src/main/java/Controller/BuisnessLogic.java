@@ -171,9 +171,7 @@ public class BuisnessLogic {
                     + loginDetails.getTeamName().toLowerCase() 
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND FinalTime = null;";
-            rst = stmt.executeQuery(sql);
-        sql = "UPDATE TeamDetail set QuestionType='P'";
-        stmt.executeUpdate(sql);
+        rst = stmt.executeQuery(sql);
         if(rst!=null){
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
@@ -212,7 +210,7 @@ public class BuisnessLogic {
         	Statement stmt = con.createStatement();
         	ResultSet rst = stmt.executeQuery(sql);
         	if(rst!=null){
-        		checkProgress.setQuestionNumber(rst.getString("QuestionType"));
+        		checkProgress.setQuestoinType(rst.getString("QuestionType"));
         		checkProgress.setStatus("Success");
         	}else{
         		checkProgress.setStatus("Fail");
