@@ -5,11 +5,13 @@
  */
 package Controller;
 
+import Models.CheckProgress;
 import Models.FinalSubmission;
 import Models.Login;
 import Models.Question;
 import Models.Register;
 import Models.Team;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -110,7 +112,7 @@ public class BuisnessLogic {
         int numRowsChanged=0;
         try{
             if(loginDetails.getAnswer()!=null){
-            if(loginDetails.getAnswer().equals("ac")&&loginDetails.getQuestionType().trim().equals("C")){
+            if(loginDetails.getAnswer().equals("ac")){
                 sql = "UPDATE TeamDetail"
                   +" SET QuestionNumber = QuestionNumber + 1"
                   +" ,QuestionType = 'P'"
@@ -181,12 +183,36 @@ public class BuisnessLogic {
     
     public static FinalSubmission finalSubmit(FinalSubmission finalSubmission){
         FinalSubmission finalSubmit = new FinalSubmission();
+        String sql="";
+        java.sql.Connection con = Connection.connectionEstablish();
+        try{
+        	Statement stmt = con.createStatement();
+        	finalSubmit.setStatus("Success");
+        }
+        catch(Exception ex){
+        	finalSubmit.setStatus("Fail");
+        }
         return finalSubmit;
     }
     
-    public static Question checkAnswer(Login login){
-        Question question = new Question();
-        
-        return question;
+    public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
+    	CheckProgress checkProgress = new CheckProgress();
+    	java.sql.Connection con = Connection.connectionEstablish();
+        String sql = "SELECT QuestionType FROM TeamDetails WHERE TeamName  ='"+login.getTeamName()+"';";
+        try{
+        	Statement stmt = con.createStatement();
+        	ResultSet rst = stmt.executeQuery(sql);
+        	if(rst!=null){
+        		checkProgress.setQuestionNumber(rst.getString("QuestionType"));
+        		checkProgress.setStatus("Success");
+        	}else{
+        		checkProgress.setStatus("Fail");
+        	}
+        }
+        catch(Exception ex){
+        	checkProgress.setStatus(ex.getMessage());
+        }
+        con.close();
+        return checkProgress;
     }
 }
