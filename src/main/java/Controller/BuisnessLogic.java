@@ -208,7 +208,7 @@ public class BuisnessLogic {
         java.sql.Connection con = Connection.connectionEstablish();
         try{
         	Statement stmt = con.createStatement();
-        	sql = "ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);";
+        	sql = "ALTER TABLE TeamDetails ADD FinalTime varchar(10);";
         	stmt.execute(sql);
         	sql = "ALTER TABLE ProblemStatement Add CodeInput varchar(1024);";
         	stmt.execute(sql);
