@@ -21,6 +21,8 @@ public class Question {
     public String status;
     public String teamName;
     public String questionType;
+    public String questionInputFormat;
+    public String questionOutputFormat;
 
     public String getQuestionType() {
         return questionType;

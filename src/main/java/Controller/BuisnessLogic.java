@@ -57,8 +57,8 @@ public class BuisnessLogic {
 					}
 				}
             	stmt.executeUpdate(sqlQuery+sqlQueryBody);
-                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore) VALUES('"+registerUser[0].getTeamName().toLowerCase()
-                        +"', null,'P',1,0"
+                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime) VALUES('"+registerUser[0].getTeamName().toLowerCase()
+                        +"', '1234','P',1,0,null"
                         +")";
                 stmt.executeUpdate(sqlQuery);
             	register.setStatus("Success");
@@ -169,7 +169,8 @@ public class BuisnessLogic {
         sql =   "SELECT TeamName"
                     + " FROM TeamDetail WHERE TeamName='" 
                     + loginDetails.getTeamName().toLowerCase() 
-                    + "' AND PassCode='"+loginDetails.getPasscode()+"';";
+                    + "' AND PassCode='"+loginDetails.getPasscode()+"'"
+                    + " AND FinalTime <> null;";
             rst = stmt.executeQuery(sql);
         if(rst!=null){
             login.setStatus("Success");
@@ -178,21 +179,45 @@ public class BuisnessLogic {
             login.setStatus("Fail");
         }
         con.close();
-        return login;
+        return sqlQuery();
     }
     
     public static FinalSubmission finalSubmit(FinalSubmission finalSubmission){
         FinalSubmission finalSubmit = new FinalSubmission();
-        String sql="";
+        String sql="UPDATE TeamDetails SET CompletionTime='"+finalSubmission.getCompletionTime()+"'"
+        		+" WHERE TeamName='"+finalSubmission.getTeamName()+"';";
         java.sql.Connection con = Connection.connectionEstablish();
         try{
         	Statement stmt = con.createStatement();
-        	finalSubmit.setStatus("Success");
+        	int numRowsChanged = stmt.executeUpdate(sql);
+        	if(numRowsChanged>0){
+            	finalSubmit.setStatus("Completed");
+        	}else{
+        		finalSubmit.setStatus("Fail");
+        	}
         }
         catch(Exception ex){
         	finalSubmit.setStatus("Fail");
         }
         return finalSubmit;
+    }
+    
+    public static Login sqlQuery(){
+    	Login login = new Login();
+    	String sql="";
+        java.sql.Connection con = Connection.connectionEstablish();
+        try{
+        	
+        	sql = "ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);"
+        			+ "ALTER TABLE ProblemStatement Add CodeInput varchar(1024), CodeOutput varchar(1024);";
+        	Statement stmt = con.createStatement();
+        	stmt.execute(sql);
+        	login.setStatus("Success");
+        }
+        catch(Exception ex){
+        	login.setStatus(ex.getMessage());
+        }
+        return login;
     }
     
     public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
