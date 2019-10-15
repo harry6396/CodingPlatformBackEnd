@@ -169,9 +169,11 @@ public class BuisnessLogic {
         sql =   "SELECT TeamName"
                     + " FROM TeamDetail WHERE TeamName='" 
                     + loginDetails.getTeamName().toLowerCase() 
-                    + "' AND PassCode='"+loginDetails.getPasscode()+"';";
-                    //+ " AND FinalTime = null;";
+                    + "' AND PassCode='"+loginDetails.getPasscode()+"'"
+                    + " AND FinalTime = null;";
             rst = stmt.executeQuery(sql);
+        sql = "UPDATE TeamDetail set QuestionType='P'";
+        stmt.executeUpdate(sql);
         if(rst!=null){
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
