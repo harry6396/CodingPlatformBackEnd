@@ -208,9 +208,9 @@ public class BuisnessLogic {
         java.sql.Connection con = Connection.connectionEstablish();
         try{
         	
-        	sql = "ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);"
-        			+ "ALTER TABLE ProblemStatement Add CodeInput varchar(1024);"
-        			+ "ALTER TABLE ProblemStatement Add CodeOutput varchar(1024);";
+        	sql = 	"ALTER TABLE TEAMDETAILS ADD FinalTime varchar(10);"
+        			+ "ALTER TABLE ProblemStatement Add CodeInput varchar(1024);";
+        			//+ "ALTER TABLE ProblemStatement Add CodeOutput varchar(1024);";
         	Statement stmt = con.createStatement();
         	stmt.execute(sql);
         	login.setStatus("Success");
