@@ -170,7 +170,7 @@ public class BuisnessLogic {
                     + " FROM TeamDetail WHERE TeamName='" 
                     + loginDetails.getTeamName().toLowerCase() 
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
-                    + " AND FinalTime <> null;";
+                    + " AND FinalTime = null;";
             rst = stmt.executeQuery(sql);
         if(rst!=null){
             login.setStatus("Success");
