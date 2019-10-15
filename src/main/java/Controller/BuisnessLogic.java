@@ -132,7 +132,7 @@ public class BuisnessLogic {
             }
             }
             if(numRowsChanged>0||loginDetails.getAnswer()==null){
-            sql = "SELECT ProblemStatement, ProblemDescription, TestCase, MaxScore, PuzzleStatement,  PuzzleDescription, Answer, QuestionType"
+            sql = "SELECT ProblemStatement, ProblemDescription, TestCase, MaxScore, PuzzleStatement,  PuzzleDescription, Answer, QuestionType, CodeInput, CodeOutput, Example"
                       +" FROM ProblemStatement PS"
                       +" INNER JOIN PuzzleProblemStatement PPS ON PPS.ProblemId = PS.ProblemID"
                       +" INNER JOIN TeamDetail TD ON TD.QuestionNumber = PS.ProblemID"
@@ -147,6 +147,9 @@ public class BuisnessLogic {
                     question.setPuzzleDescription("PuzzleDescription");
                     question.setPuzzleStatement(rst.getString("PuzzleStatement"));
                     question.setQuestionType(rst.getString("QuestionType"));
+                    question.setQuestionInputFormat(rst.getString("CodeInput"));
+                    question.setQuestionOutputFormat(rst.getString("CodeOutput"));
+                    question.setExample(rst.getString("Example"));
                 }
                 question.setStatus("Success");
             }else{
@@ -205,12 +208,13 @@ public class BuisnessLogic {
     public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
     	CheckProgress checkProgress = new CheckProgress();
     	java.sql.Connection con = Connection.connectionEstablish();
-        String sql = "SELECT QuestionType FROM TeamDetail WHERE TeamName  ='"+login.getTeamName()+"';";
+        String sql = "SELECT QuestionType,QuestionNumber FROM TeamDetail WHERE TeamName  ='"+login.getTeamName()+"';";
         try{
         	Statement stmt = con.createStatement();
         	ResultSet rst = stmt.executeQuery(sql);
         	if(rst.next()){
         		checkProgress.setQuestionType(rst.getString("QuestionType"));
+                        checkProgress.setQuestionNumber(rst.getString("QuestionNumber"));
         		checkProgress.setStatus("Success");
         	}else{
         		checkProgress.setStatus("Fail");

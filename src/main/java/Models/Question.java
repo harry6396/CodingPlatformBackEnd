@@ -23,6 +23,31 @@ public class Question {
     public String questionType;
     public String questionInputFormat;
     public String questionOutputFormat;
+    public String example;
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public String getQuestionInputFormat() {
+        return questionInputFormat;
+    }
+
+    public void setQuestionInputFormat(String questionInputFormat) {
+        this.questionInputFormat = questionInputFormat;
+    }
+
+    public String getQuestionOutputFormat() {
+        return questionOutputFormat;
+    }
+
+    public void setQuestionOutputFormat(String questionOutputFormat) {
+        this.questionOutputFormat = questionOutputFormat;
+    }
 
     public String getQuestionType() {
         return questionType;
