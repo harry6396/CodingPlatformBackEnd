@@ -179,7 +179,7 @@ public class BuisnessLogic {
             login.setStatus("Fail");
         }
         con.close();
-        return sqlQuery();
+        return login;
     }
     
     public static FinalSubmission finalSubmit(FinalSubmission finalSubmission){
@@ -200,23 +200,6 @@ public class BuisnessLogic {
         	finalSubmit.setStatus("Fail");
         }
         return finalSubmit;
-    }
-    
-    public static Login sqlQuery(){
-    	Login login = new Login();
-    	String sql="";
-        java.sql.Connection con = Connection.connectionEstablish();
-        try{
-        	Statement stmt = con.createStatement();
-        	sql = "UPDATE TeamDetail SET QuestionType='P';";
-        	stmt.executeUpdate(sql);
-        	login.setStatus("Success");
-        	con.close();
-        }
-        catch(Exception ex){
-        	login.setStatus(ex.getMessage());
-        }
-        return login;
     }
     
     public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
