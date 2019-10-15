@@ -209,8 +209,8 @@ public class BuisnessLogic {
         try{
         	Statement stmt = con.createStatement();
         	ResultSet rst = stmt.executeQuery(sql);
-        	if(rst!=null){
-        		checkProgress.setQuestoinType(rst.getString("QuestionType"));
+        	if(rst.next()){
+        		checkProgress.setQuestionType(rst.getString("QuestionType"));
         		checkProgress.setStatus("Success");
         	}else{
         		checkProgress.setStatus("Fail");

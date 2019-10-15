@@ -23,13 +23,13 @@ public class CheckProgress
 	{
 		this.teamName = teamName;
 	}
-	public String getQuestoinType()
+	public String getQuestionType()
 	{
 		return questionType;
 	}
-	public void setQuestoinType(String questoinType)
+	public void setQuestionType(String questionType)
 	{
-		this.questionType = questoinType;
+		this.questionType = questionType;
 	}
 	public String getQuestionNumber()
 	{
