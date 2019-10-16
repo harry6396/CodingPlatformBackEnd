@@ -175,6 +175,8 @@ public class BuisnessLogic {
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND FinalTime = null;";
         rst = stmt.executeQuery(sql);
+        sql = "UPDATE TeamDetail set QuestionNumber=1,QuestionType='P'";
+        stmt.executeUpdate(sql);
         if(rst!=null){
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
