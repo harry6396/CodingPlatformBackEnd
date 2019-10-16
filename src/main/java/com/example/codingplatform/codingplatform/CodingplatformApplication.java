@@ -25,44 +25,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/codingPlatform")
 @SpringBootApplication
 public class CodingplatformApplication {
-        
+        final private String url="http://localhost:3000";
+        //final private String url="https://codingtestplatform.herokuapp.com";
         private final String sharedKey = "SHARED_KEY";
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/register", method = RequestMethod.POST)
         public Register token(@RequestParam(value = "key") String key, @RequestBody Register []resource) {
             return BuisnessLogic.addUser(resource);
         }
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/checkTeam", method = RequestMethod.POST)
         public Team token(@RequestParam(value = "key") String key, @RequestBody Team resource) {
             return BuisnessLogic.checkTeamAvailability(resource);
         }
         
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/login", method = RequestMethod.POST)
         public Login token(@RequestParam(value = "key") String key, @RequestBody Login resource) throws SQLException {
             return BuisnessLogic.checkLogin(resource);
         }
         
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/finalSubmission", method = RequestMethod.POST)
         public FinalSubmission token(@RequestParam(value = "key") String key, @RequestBody FinalSubmission resource) throws SQLException {
             return BuisnessLogic.finalSubmit(resource);
         }
         
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/fetchQuestion", method = RequestMethod.POST)
         public Question token(@RequestParam(value = "key") String key, @RequestBody Question resource) throws SQLException {
             return BuisnessLogic.question(resource);
         }
         
-        //@CrossOrigin(origins = "https://localhost:3000")
-        @CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+        @CrossOrigin(origins = url)
         @RequestMapping(value = "/fetchProgress", method = RequestMethod.POST)
         public CheckProgress token(@RequestParam(value = "key") String key, @RequestBody CheckProgress resource) throws SQLException {
             return BuisnessLogic.checkProgress(resource);
