@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
-//@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "https://codingtestplatform.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/codingPlatform")
 @SpringBootApplication
 public class CodingplatformApplication {
