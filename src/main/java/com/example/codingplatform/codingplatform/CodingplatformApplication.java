@@ -38,7 +38,7 @@ public class CodingplatformApplication {
         
         @CrossOrigin(origins = url)
         @RequestMapping(value = "/checkTeam", method = RequestMethod.POST)
-        public Team token(@RequestParam(value = "key") String key, @RequestBody Team resource) {
+        public Team token(@RequestParam(value = "key") String key, @RequestBody Team resource) throws SQLException {
             return BuisnessLogic.checkTeamAvailability(resource);
         }
         
