@@ -83,17 +83,10 @@ public class BuisnessLogic {
             String sql = "SELECT TeamName"
                     + " FROM RegisterUser WHERE TeamName='" + teamDetails.teamName.toLowerCase() + "';";
             ResultSet rst = stmt.executeQuery(sql);
-            if(rst!=null){
-                rst.beforeFirst();  
-                rst.last();  
-                int size = rst.getRow();  
-                if (size==0) {
-                    team.setStatus("Success");
-                } else {
+            if(rst.next()){
                 team.setStatus("Fail");
-                }
             }else{
-                team.setStatus("Fail");
+                team.setStatus("Success");
             }
             con.close();
         } catch (SQLException ex) {
@@ -175,8 +168,8 @@ public class BuisnessLogic {
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND IsComplete = 0;";
         rst = stmt.executeQuery(sql);
-        stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
-        if(rst!=null){
+        if(rst.next()){
+            stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
         }else{
