@@ -33,7 +33,6 @@ import org.springframework.web.client.RestTemplate;
  * @author Prabhat
  */
 public class BuisnessLogic {
-    public static Code code = new Code();
     public static Register addUser(Register []registerUser){
         Register register = new Register();
         java.sql.Connection con = Connection.connectionEstablish();
@@ -140,7 +139,7 @@ public class BuisnessLogic {
             }
             }
             if(numRowsChanged>0||loginDetails.getAnswer()==null){
-            sql = "SELECT ProblemStatement, ProblemDescription, TestCase, MaxScore, PuzzleStatement,  PuzzleDescription, Answer, QuestionType, CodeInput, CodeOutput, Example"
+            sql = "SELECT ProblemStatement, ProblemDescription, TestCase, MaxScore, PuzzleStatement,  PuzzleDescription, Answer, QuestionType, CodeInput, CodeOutput, Example, ExpectedOp"
                       +" FROM ProblemStatement PS"
                       +" INNER JOIN PuzzleProblemStatement PPS ON PPS.ProblemId = PS.ProblemID"
                       +" INNER JOIN TeamDetail TD ON TD.QuestionNumber = PS.ProblemID"
@@ -158,6 +157,7 @@ public class BuisnessLogic {
                     question.setQuestionInputFormat(rst.getString("CodeInput"));
                     question.setQuestionOutputFormat(rst.getString("CodeOutput"));
                     question.setExample(rst.getString("Example"));
+                    question.setExpectedOp(rst.getString("ExpectedOp"));
                 }
                 question.setStatus("Success");
             }else{
@@ -237,19 +237,32 @@ public class BuisnessLogic {
     }
     
     public static Code compileCode(Code resource){
+        Code code = new Code();
         MultiValueMap<String, String> jsonMap= new LinkedMultiValueMap<String, String>();
-	String URL = "https://api.hackerearth.com/v3/code/run/";
+        String URL="";
+        if(resource.getType().toLowerCase().equals("compile")){
+            URL = "https://api.hackerearth.com/v3/code/compile/";
+        }
+        else if(resource.getType().toLowerCase().equals("run")){
+            URL = "https://api.hackerearth.com/v3/code/run/";
+            jsonMap.add("input", resource.getTestCase());
+        }
 	jsonMap.add("async", "0");
 	jsonMap.add("time_limit","10");
 	jsonMap.add("memory_limit","262144");
         jsonMap.add("client_secret", "f3c1455800df92db6737d087ac0c93424bbe1e40");
-	jsonMap.add("time_limit","10");
-	jsonMap.add("source","print(\"Hello World\")");
-        jsonMap.add("lang","PYTHON");
+	jsonMap.add("source",resource.getSourceCode());
+        jsonMap.add("lang",resource.getLang());
         HttpHeaders headers = new HttpHeaders();
 	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED); 
         Map<String,Object>result= callWebService(jsonMap,headers,URL); 
-        code.result = result;
+        code.setResult(result);
+        
+        if(result!=null&&result.size()>0){
+            code.setStatus("Success");
+        }else{
+            code.setStatus("Fail");
+        }
         return code;
     }
     
@@ -261,10 +274,8 @@ public class BuisnessLogic {
             result = restTemplate.postForObject(url, entity, Map.class);
 	}catch(HttpClientErrorException e){
 		e.printStackTrace();
-                code.status=e.getMessage();
 	}catch(Exception e){
 		e.printStackTrace();
-                code.status=e.getMessage();
 	}
 	return result;
 } 

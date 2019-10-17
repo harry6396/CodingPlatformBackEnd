@@ -24,6 +24,15 @@ public class Question {
     public String questionInputFormat;
     public String questionOutputFormat;
     public String example;
+    public String expectedOp;
+
+    public String getExpectedOp() {
+        return expectedOp;
+    }
+
+    public void setExpectedOp(String expectedOp) {
+        this.expectedOp = expectedOp;
+    }
 
     public String getExample() {
         return example;
