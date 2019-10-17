@@ -57,8 +57,8 @@ public class BuisnessLogic {
 					}
 				}
             	stmt.executeUpdate(sqlQuery+sqlQueryBody);
-                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime) VALUES('"+registerUser[0].getTeamName().toLowerCase()
-                        +"', '1234','P',1,0,NULL"
+                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime, IsComplete) VALUES('"+registerUser[0].getTeamName().toLowerCase()
+                        +"', '1234','P',1,0,NULL,0"
                         +")";
                 stmt.executeUpdate(sqlQuery);
             	register.setStatus("Success");
@@ -173,8 +173,9 @@ public class BuisnessLogic {
                     + " FROM TeamDetail WHERE TeamName='" 
                     + loginDetails.getTeamName().toLowerCase() 
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
-                    + " AND FinalTime = null;";
+                    + " AND IsComplete = 0;";
         rst = stmt.executeQuery(sql);
+        stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
         if(rst!=null){
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
