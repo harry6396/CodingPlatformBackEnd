@@ -33,6 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Prabhat
  */
 public class BuisnessLogic {
+    public static Code code = new Code();
     public static Register addUser(Register []registerUser){
         Register register = new Register();
         java.sql.Connection con = Connection.connectionEstablish();
@@ -236,7 +237,6 @@ public class BuisnessLogic {
     }
     
     public static Code compileCode(Code resource){
-        Code code = new Code();
         MultiValueMap<String, String> jsonMap= new LinkedMultiValueMap<String, String>();
 	String URL = "https://api.hackerearth.com/v3/code/run/";
 	jsonMap.add("async", "0");
@@ -258,13 +258,15 @@ public class BuisnessLogic {
 	HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(jsonMap,headers);
 	Map<String,Object> result=new HashMap<String, Object>();
 	try{
-		if(System.getProperty("Testing").equalsIgnoreCase("false")){
-	result = restTemplate.postForObject(url, entity, Map.class);
-		}
+	    if (System.getProperty("Testing").equalsIgnoreCase("false")) {
+                result = restTemplate.postForObject(url, entity, Map.class);
+            }
 	}catch(HttpClientErrorException e){
 		e.printStackTrace();
+                code.status=e.getMessage();
 	}catch(Exception e){
 		e.printStackTrace();
+                code.status=e.getMessage();
 	}
 	return result;
 } 
