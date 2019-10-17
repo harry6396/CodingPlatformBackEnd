@@ -168,7 +168,10 @@ public class BuisnessLogic {
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND IsComplete = 0;";
         rst = stmt.executeQuery(sql);
-        if(rst!=null){
+        rst.beforeFirst();  
+        rst.last();
+        int size = rst.getRow(); 
+        if(size>0){
             stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
