@@ -195,7 +195,7 @@ public class BuisnessLogic {
         	Statement stmt = con.createStatement();
         	int numRowsChanged = stmt.executeUpdate(sql);
         	if(numRowsChanged>0){
-                    finalSubmit.setStatus("Completed");
+                    finalSubmit.setStatus("Success");
         	}else{
                     finalSubmit.setStatus("Fail");
         	}
