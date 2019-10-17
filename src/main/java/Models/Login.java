@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Login {
     public String teamName;
-    public String passcode;
+    public String passCode;
     public String status;
     
     public String getTeamName() {
@@ -26,11 +26,11 @@ public class Login {
     }
 
     public String getPasscode() {
-        return passcode;
+        return passCode;
     }
 
-    public void setPasscode(String passcode) {
-        this.passcode = passcode;
+    public void setPasscode(String passCode) {
+        this.passCode = passCode;
     }
 
     public String getStatus() {
