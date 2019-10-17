@@ -258,9 +258,7 @@ public class BuisnessLogic {
 	HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(jsonMap,headers);
 	Map<String,Object> result=new HashMap<String, Object>();
 	try{
-	    if (System.getProperty("Testing").equalsIgnoreCase("false")) {
-                result = restTemplate.postForObject(url, entity, Map.class);
-            }
+            result = restTemplate.postForObject(url, entity, Map.class);
 	}catch(HttpClientErrorException e){
 		e.printStackTrace();
                 code.status=e.getMessage();
