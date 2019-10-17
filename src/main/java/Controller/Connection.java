@@ -14,11 +14,11 @@ import java.sql.DriverManager;
 public class Connection {
      // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://bbbhnktwsikljeeklcxo-mysql.services.clever-cloud.com/bbbhnktwsikljeeklcxo";
+   static final String DB_URL = "jdbc:mysql://codingplatform.cqtx3wcvehnt.us-east-2.rds.amazonaws.com/CodingPlatformDev";
 
    //  Database credentials
-   static final String USER = "uroec5lv1uzjeusy";
-   static final String PASS = "tzEDF1sLvPppgKqM6xYA";
+   static final String USER = "harry";
+   static final String PASS = "Helloworld1";
    
    public static java.sql.Connection connectionEstablish(){
        java.sql.Connection conn = null;

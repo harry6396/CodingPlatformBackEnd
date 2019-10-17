@@ -6,6 +6,7 @@
 package Controller;
 
 import Models.CheckProgress;
+import Models.Code;
 import Models.FinalSubmission;
 import Models.Login;
 import Models.Question;
@@ -15,8 +16,17 @@ import Models.Team;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -220,4 +230,38 @@ public class BuisnessLogic {
         con.close();
         return checkProgress;
     }
+    
+    public static Code compileCode(Code resource){
+        Code code = new Code();
+        MultiValueMap<String, String> jsonMap= new LinkedMultiValueMap<String, String>();
+	String URL = "https://api.hackerearth.com/v3/code/run/";
+	jsonMap.add("async", "0");
+	jsonMap.add("time_limit","10");
+	jsonMap.add("memory_limit","262144");
+        jsonMap.add("client_secret", "f3c1455800df92db6737d087ac0c93424bbe1e40");
+	jsonMap.add("time_limit","10");
+	jsonMap.add("source","print(\"Hello World\")");
+        jsonMap.add("lang","PYTHON");
+        HttpHeaders headers = new HttpHeaders();
+	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED); 
+        Map<String,Object>result= callWebService(jsonMap,headers,URL); 
+        code.result = result;
+        return code;
+    }
+    
+    public static Map<String,Object> callWebService( MultiValueMap<String, String> jsonMap,HttpHeaders headers,String url){
+	RestTemplate restTemplate = new RestTemplate();
+	HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(jsonMap,headers);
+	Map<String,Object> result=new HashMap<String, Object>();
+	try{
+		if(System.getProperty("Testing").equalsIgnoreCase("false")){
+	result = restTemplate.postForObject(url, entity, Map.class);
+		}
+	}catch(HttpClientErrorException e){
+		e.printStackTrace();
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	return result;
+} 
 }

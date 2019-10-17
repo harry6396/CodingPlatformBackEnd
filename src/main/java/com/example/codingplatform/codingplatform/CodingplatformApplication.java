@@ -2,6 +2,7 @@ package com.example.codingplatform.codingplatform;
 
 import Controller.BuisnessLogic;
 import Models.CheckProgress;
+import Models.Code;
 import Models.FinalSubmission;
 import Models.Login;
 import Models.Question;
@@ -63,6 +64,12 @@ public class CodingplatformApplication {
         @RequestMapping(value = "/fetchProgress", method = RequestMethod.POST)
         public CheckProgress token(@RequestParam(value = "key") String key, @RequestBody CheckProgress resource) throws SQLException {
             return BuisnessLogic.checkProgress(resource);
+        }
+        
+        @CrossOrigin(origins = url)
+        @RequestMapping(value = "/compileAPI", method = RequestMethod.POST)
+        public Code token(@RequestParam(value = "key") String key, @RequestBody Code resource) throws SQLException {
+            return BuisnessLogic.compileCode(resource);
         }
         
 	public static void main(String[] args) {
