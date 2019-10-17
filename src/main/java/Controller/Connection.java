@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 public class Connection {
      // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://codingplatform.cqtx3wcvehnt.us-east-2.rds.amazonaws.com/CodingPlatformDev";
+   static final String DB_URL = "jdbc:mysql://codingplatformchallenge.cqtx3wcvehnt.us-east-2.rds.amazonaws.com/CodingPlatformDev";
 
    //  Database credentials
    static final String USER = "harry";
