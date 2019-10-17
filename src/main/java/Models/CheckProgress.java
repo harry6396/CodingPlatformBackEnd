@@ -6,7 +6,7 @@ public class CheckProgress
 	public String questionType;
 	public String questionNumber;
 	public String status;
-	
+        
 	public String getStatus()
 	{
 		return status;

@@ -58,7 +58,7 @@ public class BuisnessLogic {
 				}
             	stmt.executeUpdate(sqlQuery+sqlQueryBody);
                 sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime) VALUES('"+registerUser[0].getTeamName().toLowerCase()
-                        +"', '1234','P',1,0,null"
+                        +"', '1234','P',1,0,NULL"
                         +")";
                 stmt.executeUpdate(sqlQuery);
             	register.setStatus("Success");
@@ -122,7 +122,7 @@ public class BuisnessLogic {
                 sql = "UPDATE TeamDetail"
                   +" INNER JOIN PuzzleProblemStatement ON"
                   +" PuzzleProblemStatement.ProblemId = TeamDetail.QuestionNumber"
-                  +" AND PuzzleProblemStatement.Answer = '" + loginDetails.getAnswer() + "'"
+                  +" AND PuzzleProblemStatement.Answer = '" + loginDetails.getAnswer().trim().toLowerCase() + "'"
                   +" SET QuestionType = 'C'"
                   +" ,TeamScore = TeamScore+50"
                   +" WHERE TeamName = '" + loginDetails.getTeamName().toLowerCase() + "';";
@@ -187,20 +187,20 @@ public class BuisnessLogic {
     
     public static FinalSubmission finalSubmit(FinalSubmission finalSubmission){
         FinalSubmission finalSubmit = new FinalSubmission();
-        String sql="UPDATE TeamDetail SET CompletionTime='"+finalSubmission.getCompletionTime()+"'"
+        String sql="UPDATE TeamDetail SET FinalTime='"+finalSubmission.getCompletionTime()+"'"
         		+" WHERE TeamName='"+finalSubmission.getTeamName()+"';";
         java.sql.Connection con = Connection.connectionEstablish();
         try{
         	Statement stmt = con.createStatement();
         	int numRowsChanged = stmt.executeUpdate(sql);
         	if(numRowsChanged>0){
-            	finalSubmit.setStatus("Completed");
+                    finalSubmit.setStatus("Completed");
         	}else{
-        		finalSubmit.setStatus("Fail");
+                    finalSubmit.setStatus("Fail");
         	}
         }
         catch(Exception ex){
-        	finalSubmit.setStatus("Fail");
+            finalSubmit.setStatus("Fail");
         }
         return finalSubmit;
     }
@@ -208,7 +208,7 @@ public class BuisnessLogic {
     public static CheckProgress checkProgress(CheckProgress login) throws SQLException{
     	CheckProgress checkProgress = new CheckProgress();
     	java.sql.Connection con = Connection.connectionEstablish();
-        String sql = "SELECT QuestionType,QuestionNumber FROM TeamDetail WHERE TeamName  ='"+login.getTeamName()+"';";
+        String sql = "SELECT QuestionType, QuestionNumber FROM TeamDetail WHERE TeamName  ='"+login.getTeamName()+"';";
         try{
         	Statement stmt = con.createStatement();
         	ResultSet rst = stmt.executeQuery(sql);
