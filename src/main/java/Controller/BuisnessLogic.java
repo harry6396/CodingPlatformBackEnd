@@ -85,7 +85,7 @@ public class BuisnessLogic {
         return register;
     }
     
-    public static Team checkTeamAvailability(Team teamDetails){
+    public static Team checkTeamAvailability(Team teamDetails) throws SQLException{
         Team team = new Team();
         java.sql.Connection con = Connection.connectionEstablish();
         try {
@@ -93,16 +93,20 @@ public class BuisnessLogic {
             String sql = "SELECT TeamName"
                     + " FROM RegisterUser WHERE TeamName='" + teamDetails.teamName.toLowerCase() + "';";
             ResultSet rst = stmt.executeQuery(sql);
-            if(rst.next()){
-                team.setStatus("Fail");
+            if(rst!=null){
+                if (rst.next()) {
+                    team.setStatus("Fail");
+                } else {
+                    team.setStatus("Success");
+                }
             }else{
                 team.setStatus("Success");
             }
-            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
             team.setStatus(ex.getMessage());
         }
+        con.close();
         return team;
     }
     
