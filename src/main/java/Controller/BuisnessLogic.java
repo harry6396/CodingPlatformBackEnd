@@ -173,6 +173,7 @@ public class BuisnessLogic {
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());
         }else{
+            login.setTeamName(sql);
             login.setStatus("Fail");
         }
         con.close();
