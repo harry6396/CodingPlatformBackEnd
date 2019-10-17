@@ -69,7 +69,7 @@ public class BuisnessLogic {
 				}
             	stmt.executeUpdate(sqlQuery+sqlQueryBody);
                 sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime, IsComplete) VALUES('"+registerUser[0].getTeamName().toLowerCase()
-                        +"', '1234','P',1,0,NULL,0"
+                        +"', 'qmpzdin2o0','P',1,0,NULL,0"
                         +")";
                 stmt.executeUpdate(sqlQuery);
             	register.setStatus("Success");
