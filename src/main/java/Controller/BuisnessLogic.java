@@ -167,17 +167,18 @@ public class BuisnessLogic {
                     + loginDetails.getTeamName().toLowerCase() 
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND IsComplete = 0;";
-        rst = stmt.executeQuery(sql);
-        rst.beforeFirst();  
-        rst.last();
-        int size = rst.getRow(); 
-        if(size>0){
-            stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
+        //rst = stmt.executeQuery(sql);
+        //rst.beforeFirst();  
+        //rst.last();
+        //int size = rst.getRow(); 
+        //if(size>0){
+           // stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
             login.setStatus("Success");
-            login.setTeamName(loginDetails.getTeamName());
-        }else{
-            login.setStatus("Fail");
-        }
+            //login.setTeamName(loginDetails.getTeamName());
+            login.setTeamName(sql);
+        //}else{
+            //login.setStatus("Fail");
+        //}
         con.close();
         return login;
     }
