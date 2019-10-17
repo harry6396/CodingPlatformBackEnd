@@ -144,7 +144,7 @@ public class BuisnessLogic {
                     question.setProblemStatement(rst.getString("ProblemStatement"));
                     question.setTestCase(rst.getString("TestCase"));
                     question.setAnswer(rst.getString("Answer"));
-                    question.setPuzzleDescription("PuzzleDescription");
+                    question.setPuzzleDescription(rst.getString("PuzzleDescription"));
                     question.setPuzzleStatement(rst.getString("PuzzleStatement"));
                     question.setQuestionType(rst.getString("QuestionType"));
                     question.setQuestionInputFormat(rst.getString("CodeInput"));
