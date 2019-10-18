@@ -250,7 +250,7 @@ public class BuisnessLogic {
 	jsonMap.add("async", "0");
 	jsonMap.add("time_limit","10");
 	jsonMap.add("memory_limit","262144");
-        jsonMap.add("client_secret", "f3c1455800df92db6737d087ac0c93424bbe1e40");
+        jsonMap.add("client_secret", "c80a8e5ab76c54820f05971d7ed7b8286431087a");
 	jsonMap.add("source",resource.getSourceCode());
         jsonMap.add("lang",resource.getLang());
         HttpHeaders headers = new HttpHeaders();
