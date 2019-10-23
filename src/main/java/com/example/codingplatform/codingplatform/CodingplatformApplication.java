@@ -72,6 +72,12 @@ public class CodingplatformApplication {
             return BuisnessLogic.compileCode(resource);
         }
         
+        @CrossOrigin(origins = url)
+        @RequestMapping(value = "/runAPI", method = RequestMethod.POST)
+        public Code token1(@RequestParam(value = "key") String key, @RequestBody Code resource) throws SQLException {
+            return BuisnessLogic.compileCode(resource);
+        }
+        
 	public static void main(String[] args) {
 		SpringApplication.run(CodingplatformApplication.class, args);
 	}
