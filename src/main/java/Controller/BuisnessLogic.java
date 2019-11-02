@@ -67,8 +67,8 @@ public class BuisnessLogic {
 					}
 				}
             	stmt.executeUpdate(sqlQuery+sqlQueryBody);
-                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime, IsComplete) VALUES('"+registerUser[0].getTeamName().toLowerCase()
-                        +"', 'qmpzdin2o0','P',1,0,NULL,0"
+                sqlQuery = "INSERT INTO TeamDetail (TeamName, PassCode, QuestionType, QuestionNumber, TeamScore, FinalTime, IsComplete, InitialTime) VALUES('"+registerUser[0].getTeamName().toLowerCase()
+                        +"', 'qmpzdin2o0','P',1,0,NULL,0,'5400'"
                         +")";
                 stmt.executeUpdate(sqlQuery);
             	register.setStatus("Success");
@@ -178,12 +178,14 @@ public class BuisnessLogic {
         Statement stmt = con.createStatement();
         ResultSet rst = null;
         sql =   "SELECT TeamName"
+                    + " ,InitialTime"
                     + " FROM TeamDetail WHERE TeamName='" 
                     + loginDetails.getTeamName().toLowerCase() 
                     + "' AND PassCode='"+loginDetails.getPasscode()+"'"
                     + " AND IsComplete = 0;";
         rst = stmt.executeQuery(sql);
         if(rst.next()){
+            login.setInitialTime(rst.getString("InitialTime"));
             stmt.executeUpdate("UPDATE TeamDetail SET IsComplete = 1 WHERE TeamName='"+loginDetails.getTeamName()+"';");
             login.setStatus("Success");
             login.setTeamName(loginDetails.getTeamName());

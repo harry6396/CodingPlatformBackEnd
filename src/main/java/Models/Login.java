@@ -16,6 +16,15 @@ public class Login {
     public String teamName;
     public String passCode;
     public String status;
+    public String initialTime; 
+
+    public String getInitialTime() {
+        return initialTime;
+    }
+
+    public void setInitialTime(String initialTime) {
+        this.initialTime = initialTime;
+    }
     
     public String getTeamName() {
         return teamName;
